@@ -22,4 +22,6 @@ def bursverenkayit(request):
 def ogrenciform(request):
     return render(request,"ogrenciform.html")
 
+def ogrenciprofil(request):
+    return render(request,"ogrenciprofil.html")
 
