@@ -18,5 +18,7 @@ def ogrencikayit(request):
 
 def bursverenkayit(request):
     return render(request,"bursverenkayit.html")
-
+    
+def ogrenciprofil(request):
+    return render(request,"ogrenciprofil.html")
 
