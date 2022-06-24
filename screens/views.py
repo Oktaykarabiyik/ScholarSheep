@@ -19,4 +19,7 @@ def ogrencikayit(request):
 def bursverenkayit(request):
     return render(request,"bursverenkayit.html")
 
+def ogrenciform(request):
+    return render(request,"ogrenciform.html")
+
 

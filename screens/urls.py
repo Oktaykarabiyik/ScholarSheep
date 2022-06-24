@@ -8,4 +8,5 @@ urlpatterns=[
     path("ogrencikayit", views.ogrencikayit),
     path("bursverenkayit", views.bursverenkayit),
     path("bursverengiris", views.bursverengiris),
+    path("ogrenciform",views.ogrenciform),
 ]
