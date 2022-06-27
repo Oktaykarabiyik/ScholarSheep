@@ -25,3 +25,5 @@ def ogrenciprofil(request):
 def bursverenprofil(request):
     return render(request,"bursverenprofil.html")
 
+def ilanlar(request):
+    return render(request,"ilanlar.html")
