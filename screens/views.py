@@ -45,3 +45,11 @@ def ogrenciform(request):
 def ogrenciprofil(request):
     return render(request,"ogrenciprofil.html")
 
+def bursverenprofil(request):
+    return render(request,"bursverenprofil.html")
+
+def ilanlar(request):
+    return render(request,"ilanlar.html")
+
+def ilanekle(request):
+    return render(request,"ilanekle.html")
