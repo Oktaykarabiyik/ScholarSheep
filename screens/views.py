@@ -27,3 +27,6 @@ def bursverenprofil(request):
 
 def ilanlar(request):
     return render(request,"ilanlar.html")
+
+def ilanekle(request):
+    return render(request,"ilanekle.html")
