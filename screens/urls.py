@@ -5,8 +5,11 @@ from . import views
 urlpatterns=[
     path("", views.index),
     path("index", views.index),
+    path('postsignIn/', views.postsignIn),
     path("ogrencigiris", views.ogrencigiris),
-    path("ogrencikayit", views.ogrencikayit),
+    path("ogrencikayit", views.ogrencikayit,name="kayit"),
+    path('ogrencigiris', views.cikis, name="log"),
+    path('postsignUp/', views.postsignUp),
     path("bursverenkayit", views.bursverenkayit),
     path("bursverengiris", views.bursverengiris),
     path("ogrenciform",views.ogrenciform),
