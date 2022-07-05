@@ -154,60 +154,61 @@
     </head>
     <body>
     <div class="container">  
-      <form id="contact" action="" method="post">
+      <form id="contact" action="/postcreate/" method="post">
+        {% csrf_token %}
         <h3>Öğrenci Bilgileri</h3>
         <h4>İletişim Formu</h4>
         <fieldset>
-          <input placeholder="Ad Soyad" type="text" tabindex="1" required autofocus>
+          <input placeholder="Ad Soyad" type="text" name="adsoyad" tabindex="1" required autofocus>
         </fieldset>
         <fieldset>
-          <input placeholder="Email" type="email" tabindex="2" required>
+          <input placeholder="Email" type="email" name="email" tabindex="2" required>
         </fieldset>
         <fieldset>
-          <input placeholder="Telefon" type="tel" tabindex="3" required>
+          <input placeholder="Telefon" type="tel" name="tel" tabindex="3" required>
         </fieldset>
         <fieldset>
-            <input placeholder="Yaşınız" type="age" tabindex="4" required>
+            <input placeholder="Yaşınız" type="age" name="yas" tabindex="4" required>
         </fieldset>
         <fieldset>
           <p>Eğitim Düzeyi:</p>
-          <input type="radio" id="EgitimDuzeyi" name="fav_language" value="EgitimDuzeyi">
+          <input type="radio" id="EgitimDuzeyi" name="egitimduzeyi" value="EgitimDuzeyiLise">
           <label for="html">Lise</label>
-          <input type="radio" id="EgitimDuzeyi" name="fav_language" value="EgitimDuzeyi">
+          <input type="radio" id="EgitimDuzeyi" name="egitimduzeyi" value="EgitimDuzeyiUniversite">
           <label for="css">Üniversite</label><br>
         </fieldset>
         <fieldset>
-          <input placeholder="Okuduğunuz Bölüm Ve Üniversite" type="text" tabindex="5" required autofocus>
+          <input placeholder="Okuduğunuz Bölüm Ve Üniversite" type="text" name="bolumveokul" tabindex="5" required autofocus>
         </fieldset>
         <fieldset>
-            <input placeholder="Not ortalaması" type="double" tabindex="6" required>
+            <input placeholder="Not ortalaması" type="double" name="notortalama" tabindex="6" required>
         </fieldset>
         <fieldset>
-          <input placeholder="Aylık Gelir Düzeyi" type="text" tabindex="7" required autofocus>
+          <input placeholder="Aylık Gelir Düzeyi" type="text" name="aylikgelir" tabindex="7" required autofocus>
         </fieldset>
         <fieldset>
           <p>Anne,Baba Sağ durumu:</p>
           <p>Anne</p>
-          <input type="radio" id="AnneSag" name="fav_language" value="AnneSag">
+          <input type="radio" id="AnneSag" name="annesagdurumu" value="AnneSag">
           <label for="html">Hayatta</label>
-          <input type="radio" id="AnneSagDegil" name="fav_language" value="AnneSagDegil">
+          <input type="radio" id="AnneSagDegil" name="annesagdurumu" value="AnneSagDegil">
           <label for="css">Hayatta Değil</label><br>
           <p>Baba</p>
-          <input type="radio" id="BabaSag" name="fav_language" value="BabaSag">
+          <input type="radio" id="BabaSag" name="babasagdurumu" value="BabaSag">
           <label for="html">Hayatta</label>
-          <input type="radio" id="BabaSagDegil" name="fav_language" value="BabaSagDegil">
+          <input type="radio" id="BabaSagDegil" name="babasagdurumu" value="BabaSagDegil">
           <label for="css">Hayatta Değil</label><br>
         </fieldset>
         <fieldset>
           <p>Şehit Veya Gazi Yakını:</p>
-          <input type="radio" id="SehitVeyaGaziYakini" name="fav_language" value="SehitVeyaGaziYakini">
+          <input type="radio" id="SehitVeyaGaziYakini" name="sehityakinligi" value="SehitVeyaGaziYakini">
           <label for="html">EVET</label>
-          <input type="radio" id="SehitVeyaGaziYakiniDegil" name="fav_language" value="SehitVeyaGaziYakiniDegil">
+          <input type="radio" id="SehitVeyaGaziYakiniDegil" name="sehityakinligi" value="SehitVeyaGaziYakiniDegil">
           <label for="html">HAYIR</label>
         </fieldset>
 
         <fieldset>
-          <textarea placeholder="İkametgah adresi" tabindex="8" required></textarea>
+          <textarea placeholder="İkametgah adresi" name="ikametgah" tabindex="8" required></textarea>
         </fieldset>
         <fieldset>
           <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Kaydı Gönder.</button>

@@ -2,7 +2,7 @@ from distutils.command.config import config
 from django.http import HttpResponse
 from django.shortcuts import render
 import pyrebase
-
+from uuid import uuid4
 
 config={
   "apiKey": "AIzaSyBmM91bv9cLoRFOYHO-0k9jBv9aN3Lhh8o",
@@ -60,6 +60,41 @@ def postsignUp(request):
         return render(request, "ogrencikayit.html")
      return render(request,"ogrencigiris.html")
 
+
+def postcreate(request):
+
+    adsoyad=request.POST.get('adsoyad')
+    email=request.POST.get('email')
+    tel=request.POST.get('tel')
+    yas=request.POST.get('yas')
+    egitimduzeyi=request.POST.get('egitimduzeyi')
+    bolumveokul=request.POST.get('bolumveokul')
+    notortalama=request.POST.get('notortalama')
+    aylikgelir=request.POST.get('aylikgelir')
+    annesagdurumu=request.POST.get('annesagdurumu')
+    babasagdurumu=request.POST.get('babasagdurumu')
+    sehityakinligi=request.POST.get('sehityakinligi')
+    ikametgah=request.POST.get('ikametgah')
+
+    data={
+        "adsoyad":adsoyad,
+        "email":email,
+        "tel":tel,
+        "yas":yas,
+        "egitimduzeyi":egitimduzeyi,
+        "bolumveokul":bolumveokul,
+        "notortalama":notortalama,
+        "aylikgeir":aylikgelir,
+        "annesagdurumu":annesagdurumu,
+        "babasagdurumu":babasagdurumu,
+        "sehityakinligi":sehityakinligi,
+        "ikametgah":ikametgah        
+    }
+
+    unique_id = str(uuid4())
+    database.child("ogrenciler").child(unique_id).set(data)
+
+    return render(request, "ogrenciprofil.html")
 
 
 def index(request):
