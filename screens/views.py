@@ -1,8 +1,12 @@
 from distutils.command.config import config
+import email
 from django.http import HttpResponse
 from django.shortcuts import render
 import pyrebase
 from uuid import uuid4
+
+from requests import session
+
 
 config={
   "apiKey": "AIzaSyBmM91bv9cLoRFOYHO-0k9jBv9aN3Lhh8o",
@@ -15,9 +19,14 @@ config={
   "measurementId": "G-ETXWFENSN7"
 }
 
+id="123"
+mail="sda"
+password="1345"
+
 firebase=pyrebase.initialize_app(config)
 authe=firebase.auth()
 database=firebase.database()
+
 
 def signIn(request):
     return render(request,"index.html")
@@ -47,20 +56,58 @@ def cikis(request):
  
  
 def postsignUp(request):
-     email = request.POST.get('email')
-     passs = request.POST.get('pass')
-     name = request.POST.get('name')
-     try:
+    email = request.POST.get('email')
+    passs = request.POST.get('pass')
+    password=passs
+    adsoyad=request.POST.get('adsoyad')
+    tel=request.POST.get('tel')
+    yas=request.POST.get('yas')
+    egitimduzeyi=request.POST.get('egitimduzeyi')
+    bolumveokul=request.POST.get('bolumveokul')
+    notortalama=request.POST.get('notortalama')
+    aylikgelir=request.POST.get('aylikgelir')
+    annesagdurumu=request.POST.get('annesagdurumu')
+    babasagdurumu=request.POST.get('babasagdurumu')
+    sehityakinligi=request.POST.get('sehityakinligi')
+    ikametgah=request.POST.get('ikametgah')
+    print(email)
+    print(tel)
+    try:
         # creating a user with the given email and password
-        user=authe.create_user_with_email_and_password(email,passs)
-        uid = user['localId']
-        idtoken = request.session['uid']
-        print(uid)
-     except:
-        return render(request, "ogrencikayit.html")
-     return render(request,"ogrencigiris.html")
-
-
+        if email is not None:
+            print('Email Girdi')
+            user=authe.create_user_with_email_and_password(email,passs)
+            uid = user['localId']
+            print(uid)
+            request.session['uid'] = uid
+        if 'uid' in request.session and adsoyad is not None:
+            uid = request.session['uid']
+            print(uid)
+        
+            data={
+                "adsoyad":adsoyad,
+                "tel":tel,
+                "yas":yas,
+                "egitimduzeyi":egitimduzeyi,
+                "bolumveokul":bolumveokul,
+                "notortalama":notortalama,
+                "aylikgeir":aylikgelir,
+                "annesagdurumu":annesagdurumu,
+                "babasagdurumu":babasagdurumu,
+                "sehityakinligi":sehityakinligi,
+                "ikametgah":ikametgah        
+            }
+            print("merhaba2")
+            database.child("ogrenciler").child(uid).set(data)
+        
+    except Exception as e:
+        print(e)
+        return render(request, "ogrenciform.html") 
+    
+    print("merhaba3")
+   
+    return render(request,"ogrenciform.html")
+    
 def bursverensignIn(request):
     return render(request,"index.html")
  
@@ -101,40 +148,6 @@ def bursverenpostsignUp(request):
      return render(request,"bursverengiris.html")
 
 
-def postcreate(request):
-
-    adsoyad=request.POST.get('adsoyad')
-    email=request.POST.get('email')
-    tel=request.POST.get('tel')
-    yas=request.POST.get('yas')
-    egitimduzeyi=request.POST.get('egitimduzeyi')
-    bolumveokul=request.POST.get('bolumveokul')
-    notortalama=request.POST.get('notortalama')
-    aylikgelir=request.POST.get('aylikgelir')
-    annesagdurumu=request.POST.get('annesagdurumu')
-    babasagdurumu=request.POST.get('babasagdurumu')
-    sehityakinligi=request.POST.get('sehityakinligi')
-    ikametgah=request.POST.get('ikametgah')
-
-    data={
-        "adsoyad":adsoyad,
-        "email":email,
-        "tel":tel,
-        "yas":yas,
-        "egitimduzeyi":egitimduzeyi,
-        "bolumveokul":bolumveokul,
-        "notortalama":notortalama,
-        "aylikgeir":aylikgelir,
-        "annesagdurumu":annesagdurumu,
-        "babasagdurumu":babasagdurumu,
-        "sehityakinligi":sehityakinligi,
-        "ikametgah":ikametgah        
-    }
-
-    unique_id = str(uuid4())
-    database.child("ogrenciler").child(unique_id).set(data)
-
-    return render(request, "ogrenciprofil.html")
 
 
 def index(request):

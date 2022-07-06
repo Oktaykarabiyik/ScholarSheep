@@ -154,15 +154,12 @@
     </head>
     <body>
     <div class="container">  
-      <form id="contact" action="/postcreate/" method="post">
+      <form id="contact" method="post" action="/postsignUp/">
         {% csrf_token %}
         <h3>Öğrenci Bilgileri</h3>
         <h4>İletişim Formu</h4>
         <fieldset>
           <input placeholder="Ad Soyad" type="text" name="adsoyad" tabindex="1" required autofocus>
-        </fieldset>
-        <fieldset>
-          <input placeholder="Email" type="email" name="email" tabindex="2" required>
         </fieldset>
         <fieldset>
           <input placeholder="Telefon" type="tel" name="tel" tabindex="3" required>

@@ -28,6 +28,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+
 
 # Application definition
 
@@ -35,8 +37,8 @@ INSTALLED_APPS = [
     'screens',
     'django.contrib.admin',
     'django.contrib.auth',
-    'django.contrib.contenttypes',
     'django.contrib.sessions',
+    'django.contrib.contenttypes',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
@@ -79,7 +81,7 @@ WSGI_APPLICATION = 'scholarsheep.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': 'C:/Users/Oktay/Documents/ScholarSheep/db.sqlite3',
     }
 }
 
