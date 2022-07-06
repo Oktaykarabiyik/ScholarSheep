@@ -1,6 +1,9 @@
 from django.urls import path
 from . import views
 
+from django.urls import include, re_path
+
+
 urlpatterns=[
     path("", views.index),
     path("index", views.index),
@@ -12,4 +15,7 @@ urlpatterns=[
     path("bursverenprofil", views.bursverenprofil),
     path("ilanlar", views.ilanlar),
     path("ilanekle", views.ilanekle),
+    path("bursverenform", views.bursverenform),
+    re_path(r'^postcreatetwo', views.postcreatetwo, name='postcreatetwo')
+    
 ]
