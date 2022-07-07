@@ -154,7 +154,8 @@
     </head>
     <body>
     <div class="container">  
-      <form id="contact" action="" method="post">
+      <form id="contact" action="postcreatetwo" method="post">
+         {% csrf_token %}
         <h3>Burs Veren Bilgileri</h3>
         <h4>İletişim Formu</h4>
         <fieldset>
