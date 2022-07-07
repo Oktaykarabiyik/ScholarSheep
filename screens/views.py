@@ -149,6 +149,28 @@ def bursverenpostsignUp(request):
 
 
 
+<<<<<<< HEAD
+=======
+# Create your views here.
+def postcreatetwo(request):
+
+    adsoyad=request.POST.get('adsoyad')
+    email=request.POST.get('email')
+    tel=request.POST.get('tel')
+    ikametgah=request.POST.get('ikametgah')
+
+    data={
+        "adsoyad":adsoyad,
+        "email":email,
+        "tel":tel,
+        "ikametgah":ikametgah        
+    }
+
+    unique_id = str(uuid4())
+    database.child("bursverenler").child(unique_id).set(data)
+
+    return render(request, "bursverenprofil.html")
+>>>>>>> c817f109d30e05043265685fa92392d6f6cfbb69
 
 def index(request):
     return render(request,"index.html")
@@ -179,3 +201,6 @@ def ilanlar(request):
 
 def ilanekle(request):
     return render(request,"ilanekle.html")
+
+def bursverenform(request):
+    return render(request,"bursverenform.html")

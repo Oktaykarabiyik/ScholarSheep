@@ -24,6 +24,12 @@ urlpatterns=[
     path("bursverenprofil", views.bursverenprofil),
     path("ilanlar", views.ilanlar),
     path("ilanekle", views.ilanekle),
+<<<<<<< HEAD
     #re_path(r'^postcreate', views.postcreate, name='postcreate')
 
+=======
+    path("bursverenform", views.bursverenform),
+    re_path(r'^postcreatetwo', views.postcreatetwo, name='postcreatetwo')
+    
+>>>>>>> c817f109d30e05043265685fa92392d6f6cfbb69
 ]
