@@ -46,11 +46,13 @@ def postsignIn(request):
     session_id=user['idToken']
     request.session['uid']=str(session_id)
     
- 
+
 def cikis(request):
     try:
-        del request.session['uid']
-    except:
+        request.session.flush()
+        print("çıkış yapıldı")
+    except Exception as e:
+        print(e)
         pass
     return render(request,"ogrencigiris.html")
  

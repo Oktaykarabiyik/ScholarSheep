@@ -28,8 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
-
+SESSION_ENGINE = 'django.contrib.sessions.backends.file'
 
 # Application definition
 
@@ -115,7 +114,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/

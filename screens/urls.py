@@ -10,7 +10,7 @@ urlpatterns=[
     path('postsignIn/', views.postsignIn),
     path("ogrencigiris", views.ogrencigiris),
     path("ogrencikayit", views.ogrencikayit,name="kayit"),
-    path('ogrencigiris', views.cikis, name="log"),
+    path('cikis/', views.cikis, name="log"),
     path('postsignUp/', views.postsignUp),
     path('bursverenpostsignIn/', views.bursverenpostsignIn),
     path("bursverengiris", views.bursverengiris),
