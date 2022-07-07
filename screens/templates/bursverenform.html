@@ -154,23 +154,15 @@
     </head>
     <body>
     <div class="container">  
-      <form id="contact" action="postcreatetwo" method="post">
+      <form id="contact" action="/bursverenpostsignUp/" method="post">
          {% csrf_token %}
         <h3>Burs Veren Bilgileri</h3>
         <h4>İletişim Formu</h4>
         <fieldset>
-          <input placeholder="Ad Soyad" type="text" tabindex="1" required autofocus>
+          <input placeholder="Ad Soyad" type="text" name="adsoyad" tabindex="1" required autofocus>
         </fieldset>
         <fieldset>
-          <input placeholder="Email" type="email" tabindex="2" required>
-        </fieldset>
-        <fieldset>
-          <input placeholder="Telefon" type="tel" tabindex="3" required>
-        </fieldset>
-
-
-        <fieldset>
-          <textarea placeholder="İkametgah adresi" tabindex="8" required></textarea>
+          <input placeholder="Telefon" type="tel" name="tel" tabindex="3" required>
         </fieldset>
         <fieldset>
           <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Kaydı Gönder.</button>

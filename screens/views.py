@@ -136,41 +136,29 @@ def bursverencikis(request):
 def bursverenpostsignUp(request):
      email = request.POST.get('email')
      passs = request.POST.get('pass')
-     name = request.POST.get('name')
+     adsoyad=request.POST.get('adsoyad')
+     tel=request.POST.get('tel')
      try:
-        # creating a user with the given email and password
-        user=authe.create_user_with_email_and_password(email,passs)
-        uid = user['localId']
-        idtoken = request.session['uid']
-        print(uid)
+       if email is not None:
+            print('Email Girdi')
+            user=authe.create_user_with_email_and_password(email,passs)
+            uid = user['localId']
+            print(uid)
+            request.session['uid'] = uid
+       if 'uid' in request.session and adsoyad is not None:
+            uid = request.session['uid']
+            print(uid)
+            
+            data={
+        "adsoyad":adsoyad,
+        "tel":tel,        
+         }
+
+            database.child("bursverenler").child(uid).set(data)
      except:
         return render(request, "bursverenkayit.html")
-     return render(request,"bursverengiris.html")
+     return render(request,"bursverenform.html")
 
-
-
-<<<<<<< HEAD
-=======
-# Create your views here.
-def postcreatetwo(request):
-
-    adsoyad=request.POST.get('adsoyad')
-    email=request.POST.get('email')
-    tel=request.POST.get('tel')
-    ikametgah=request.POST.get('ikametgah')
-
-    data={
-        "adsoyad":adsoyad,
-        "email":email,
-        "tel":tel,
-        "ikametgah":ikametgah        
-    }
-
-    unique_id = str(uuid4())
-    database.child("bursverenler").child(unique_id).set(data)
-
-    return render(request, "bursverenprofil.html")
->>>>>>> c817f109d30e05043265685fa92392d6f6cfbb69
 
 def index(request):
     return render(request,"index.html")
