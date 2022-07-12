@@ -26,6 +26,7 @@ password="1345"
 firebase=pyrebase.initialize_app(config)
 authe=firebase.auth()
 database=firebase.database()
+db = firebase.database()
 
 
 def signIn(request):
@@ -39,7 +40,29 @@ def postsignIn(request):
     try:
         # if there is no error then signin the user with given email and password
         user=authe.sign_in_with_email_and_password(email,pasw)
-        return render(request,"index.html",{"email":email})
+        uid = user['localId']
+        adsoyad = db.child("ogrenciler").child(uid).child("adsoyad").get().val()
+        tel = db.child("ogrenciler").child(uid).child("tel").get().val()
+        okul = db.child("ogrenciler").child(uid).child("bolumveokul").get().val()
+        adres = db.child("ogrenciler").child(uid).child("ikametgah").get().val()
+        ad_soyadi=adsoyad
+        tel_no=tel
+        e_mail=email
+
+        context = {
+
+                'ad_soyadi': ad_soyadi,
+                'e_mail':e_mail,
+                'tel_no':tel_no,
+                'okul':okul,
+                'adres':adres,
+
+             }
+        print(ad_soyadi)
+        print(tel_no)
+
+
+        return render(request,"ogrenciprofil.html",context=context)
     except:
         message="Invalid Credentials!!Please ChecK your Data"
         return render(request,"ogrencigiris.html",{"message":message})
@@ -72,6 +95,10 @@ def postsignUp(request):
     babasagdurumu=request.POST.get('babasagdurumu')
     sehityakinligi=request.POST.get('sehityakinligi')
     ikametgah=request.POST.get('ikametgah')
+    ad_soyadi=adsoyad
+    tel_no=tel
+    okul=bolumveokul
+    adres=ikametgah
     print(email)
     print(tel)
     try:
@@ -80,10 +107,14 @@ def postsignUp(request):
             print('Email Girdi')
             user=authe.create_user_with_email_and_password(email,passs)
             uid = user['localId']
+            mail=user['email']
             print(uid)
             request.session['uid'] = uid
+            request.session['email']=mail
         if 'uid' in request.session and adsoyad is not None:
             uid = request.session['uid']
+            mail=request.session['email']
+            e_mail=mail
             print(uid)
         
             data={
@@ -99,8 +130,16 @@ def postsignUp(request):
                 "sehityakinligi":sehityakinligi,
                 "ikametgah":ikametgah        
             }
-            print("merhaba2")
             database.child("ogrenciler").child(uid).set(data)
+            context = {
+
+                'ad_soyadi': ad_soyadi,
+                'tel_no':tel_no,
+                'e_mail':e_mail,
+                'okul':okul,
+                'adres':adres,
+
+             }
         
     except Exception as e:
         print(e)
@@ -108,7 +147,11 @@ def postsignUp(request):
     
     print("merhaba3")
    
-    return render(request,"ogrenciform.html")
+    if (adsoyad is not None):
+        return render(request,"ogrenciprofil.html",context=context)
+    else:
+        return render(request,"ogrenciform.html")
+
     
 def bursverensignIn(request):
     return render(request,"index.html")
@@ -119,9 +162,28 @@ def bursverenpostsignIn(request):
     try:
         # if there is no error then signin the user with given email and password
         user=authe.sign_in_with_email_and_password(email,pasw)
-        return render(request,"index.html",{"email":email})
+        uid = user['localId']
+        print(uid)
+        adsoyad = db.child("bursverenler").child(uid).child("adsoyad").get().val()
+        tel = db.child("bursverenler").child(uid).child("tel").get().val()
+        ad_soyadi=adsoyad
+        tel_no=tel
+        e_mail=email
+            
+        context = {
+
+                'ad_soyadi': ad_soyadi,
+                'e_mail':e_mail,
+                'tel_no':tel_no,
+             }
+        print(ad_soyadi)
+        print(tel_no)
+        return render(request,"bursverenprofil.html",context=context)
+
+        
     except:
         message="Invalid Credentials!!Please ChecK your Data"
+        print("hatali sifre")
         return render(request,"bursverengiris.html",{"message":message})
     session_id=user['idToken']
     request.session['uid']=str(session_id)
@@ -145,22 +207,36 @@ def bursverenpostsignUp(request):
             print('Email Girdi')
             user=authe.create_user_with_email_and_password(email,passs)
             uid = user['localId']
+            e_mail=user['email']
             print(uid)
+            print(e_mail)
             request.session['uid'] = uid
+            request.session['email']= e_mail
        if 'uid' in request.session and adsoyad is not None:
             uid = request.session['uid']
+            e_mail=request.session['email']
             print(uid)
-            
+            ad_soyadi=adsoyad
+            tel_no=tel
             data={
-        "adsoyad":adsoyad,
-        "tel":tel,        
-         }
+                "adsoyad":adsoyad,
+                "tel":tel,        
+                 }
 
             database.child("bursverenler").child(uid).set(data)
+
+            context = {
+
+                'ad_soyadi': ad_soyadi,
+                'tel_no':tel_no,
+                'e_mail':e_mail,
+             }
      except:
         return render(request, "bursverenkayit.html")
-     return render(request,"bursverenform.html")
-
+     if (adsoyad is not None):
+        return render(request,"bursverenprofil.html",context=context)
+     else:
+        return render(request,"bursverenform.html")
 
 def index(request):
     return render(request,"index.html")
