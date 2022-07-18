@@ -20,8 +20,9 @@
 		<div class="wizard-heading">Burs İlanı Oluştur</div>
 		<div class="wizard-v6-content">
 			<div class="wizard-form">
-		        <form class="form-register" id="form-register" action="#" method="post">
-		        	<div id="form-total">
+		        <form class="form-register" id="form-register" action="/ilanekle" method="post">
+		        	{% csrf_token %}
+					<div id="form-total">
 		        		<!-- SECTION 1 -->
 			            <h2>
 			            	<p class="step-icon"><span>1</span></p>
@@ -36,35 +37,15 @@
 								<div class="form-row">
 									<div class="form-holder">
 										<label class="form-row-inner">
-											<input type="text" class="form-control" id="first_name" name="first_name" required>
-											<span class="label">Ad</span>
-										</label>
-									</div>
-									<div class="form-holder">
-										<label class="form-row-inner">
-											<input type="text" class="form-control" id="last_name" name="last_name" required>
-											<span class="label">Soyad</span>
-										</label>
-									</div>
-								</div>
-								<div class="form-row">
-									<div class="form-holder">
-										<label class="form-row-inner">
-											<input type="text" class="form-control" id="phone" name="phone" required>
-											<span class="label">Tel no</span>
-										</label>
-									</div>
-									<div class="form-holder">
-										<label class="form-row-inner">
-											<input type="text" name="your_email_1" id="your_email_1" class="form-control"  required>
-											<span class="label">E-posta</span>
+											<input type="text" class="form-control" id="first_name" name="burs_name" required>
+											<span class="label">Burs Adı</span>
 										</label>
 									</div>
 								</div>								
 								<div class="form-row">
 									<div class="form-holder form-holder-2">
 										<label class="form-row-inner">
-											<input type="text" class="form-control" id="bursniktari" name="bursmiktari" required>
+											<input type="text" class="form-control" id="bursmiktari" name="burs_miktari" required>
 											<span class="label">Burs Miktarı</span>
 										</label>
 									</div>
@@ -72,7 +53,7 @@
                                 <div class="form-row">
 									<div class="form-holder form-holder-2">
 										<label class="form-row-inner">
-											<input type="text" class="form-control" id="aciklama" name="aciklama" required>
+											<input type="price" class="form-control" id="aciklama" name="aciklama" required>
 											<span class="label">Açıklama</span>
 										</label>
 									</div>
@@ -111,18 +92,6 @@
 										<label for="day" class="special-label-1">Son Başvuru Tarihi</label>
 										<input type="text" name="day" class="day" id="day" placeholder="15 / 08 / 2018">
 									</div>
-									<div class="form-holder">
-										<label for="time" class="special-label-1">Saat </label>
-										<select name="time" id="time" class="form-control">
-											<option value="8:00am - 10.00am" selected>8:00am - 10.00am</option>
-											<option value="9:00am - 21:00pm">9:00am - 21:00pm</option>
-											<option value="10:00am - 22:00pm">10:00am - 22:00pm</option>
-											<option value="12:00am - 24:00pm">12:00am - 24:00pm</option>
-										</select>
-										<span class="select-btn">
-											<i class="zmdi zmdi-chevron-down"></i>
-										</span>
-									</div>
 								</div>
 							</div>
 			            </section>
@@ -141,8 +110,8 @@
 									<table class="table">
 										<tbody>
 											<tr class="space-row">
-												<th>Ad soyad:</th>
-												<td id="fullname-val"></td>
+												<th>Burs adi</th>
+												<td id="fullname-val">burs_name</td>
 											</tr>
 											<!-- <tr class="space-row">
 												<th>Room:</th>
@@ -150,16 +119,19 @@
 											</tr> -->
 											<tr class="space-row">
 												<th>Day:</th>
-												<td id="day-val"></td>
-											</tr>
-											<tr class="space-row">
-												<th>Time:</th>
-												<td id="time-val"></td>
+												<td id="day-val">day</td>
 											</tr>
 											<tr class="space-row">
 												<th>Price:</th>
-												<td id="price-val">40.00$</td>
+												<td id="fullname-val">burs_miktari</td>
 											</tr>
+											<tr class="space-row">
+												<th></th>
+												<td id="fullname-val">
+													<button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Kaydı Gönder.</button>
+												</td>
+											</tr>
+											
 										</tbody>
 									</table>
 								</div>

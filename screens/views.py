@@ -42,8 +42,8 @@ def postsignIn(request):
         user=authe.sign_in_with_email_and_password(email,pasw)
         uid = user['localId']
         adsoyad = db.child("ogrenciler").child(uid).child("adsoyad").get().val()
-        tel = db.child("ogrenciler").child(uid).child("tel").get().val()
-        okul = db.child("ogrenciler").child(uid).child("bolumveokul").get().val()
+        tel = db.child("ogrenciler").child(uid).child("telefon").get().val()
+        okul = db.child("ogrenciler").child(uid).child("okuladi").get().val()
         adres = db.child("ogrenciler").child(uid).child("ikametgah").get().val()
         ad_soyadi=adsoyad
         tel_no=tel
@@ -85,10 +85,10 @@ def postsignUp(request):
     passs = request.POST.get('pass')
     password=passs
     adsoyad=request.POST.get('adsoyad')
-    tel=request.POST.get('tel')
+    tel=request.POST.get('telefon')
     yas=request.POST.get('yas')
     egitimduzeyi=request.POST.get('egitimduzeyi')
-    bolumveokul=request.POST.get('bolumveokul')
+    bolumveokul=request.POST.get('okuladi')
     notortalama=request.POST.get('notortalama')
     aylikgelir=request.POST.get('aylikgelir')
     annesagdurumu=request.POST.get('annesagdurumu')
@@ -165,10 +165,13 @@ def bursverenpostsignIn(request):
         uid = user['localId']
         print(uid)
         adsoyad = db.child("bursverenler").child(uid).child("adsoyad").get().val()
-        tel = db.child("bursverenler").child(uid).child("tel").get().val()
+        tel = db.child("bursverenler").child(uid).child("telefon").get().val()
         ad_soyadi=adsoyad
         tel_no=tel
         e_mail=email
+
+        request.session['logged_email'] = email
+        request.session['logged_passw'] = pasw
             
         context = {
 
@@ -178,7 +181,7 @@ def bursverenpostsignIn(request):
              }
         print(ad_soyadi)
         print(tel_no)
-        return render(request,"bursverenprofil.html",context=context)
+        return render(request,"ilanekle.html",context=context)
 
         
     except:
@@ -201,7 +204,7 @@ def bursverenpostsignUp(request):
      email = request.POST.get('email')
      passs = request.POST.get('pass')
      adsoyad=request.POST.get('adsoyad')
-     tel=request.POST.get('tel')
+     tel=request.POST.get('telefon')
      try:
        if email is not None:
             print('Email Girdi')
@@ -266,7 +269,38 @@ def ilanlar(request):
     return render(request,"ilanlar.html")
 
 def ilanekle(request):
-    return render(request,"ilanekle.html")
+    Bursadi = request.POST.get('burs_name')
+    Bursmiktari = request.POST.get('burs_miktari')
+    Aciklama=request.POST.get('aciklama')
+    tarihbilgisi=request.POST.get('day')
+    email = request.session['logged_email']
+    passs = request.session['logged_passw']
+    try:
+        # if there is no error then signin the user with given email and password
+        user=authe.sign_in_with_email_and_password(email,passs)
+        print("gecti")
+        uid = user['localId']
+        print(uid)
+        print("gecti2")
+        data={
+                "aciklama":Aciklama,
+                "bursad":Bursadi,
+                "bursmiktari":Bursmiktari,
+                "bursverenid":uid,
+                "sonbasvurutarihi":tarihbilgisi,
+                       
+        }
+         
+        unique_id = str(uuid4())
+        database.child("ilanlar").child(unique_id).set(data)
+
+    except Exception as e:
+        print(e)
+        message="Invalid Credentials!!Please ChecK your Data"
+
+
+
+    return render(request,"bursverenprofil.html")
 
 def bursverenform(request):
     return render(request,"bursverenform.html")
