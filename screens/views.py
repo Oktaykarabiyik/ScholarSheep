@@ -1,5 +1,6 @@
 from distutils.command.config import config
 import email
+from multiprocessing import context
 from django.http import HttpResponse
 from django.shortcuts import render
 import pyrebase
@@ -181,7 +182,7 @@ def bursverenpostsignIn(request):
              }
         print(ad_soyadi)
         print(tel_no)
-        return render(request,"ilanekle.html",context=context)
+        return render(request,"bursverenprofil.html",context=context)
 
         
     except:
@@ -266,7 +267,21 @@ def bursverenprofil(request):
     return render(request,"bursverenprofil.html")
 
 def ilanlar(request):
-    return render(request,"ilanlar.html")
+
+    ilanlar = db.child("ilanlar").get().val()
+    ilan_list = []
+    for elem in ilanlar:
+        ilan = {
+            'bursAdi':ilanlar[elem].get('bursad'),
+            'aciklama':ilanlar[elem].get('aciklama'),
+            'bursmiktari':ilanlar[elem].get('bursmiktari'),
+            'sonbasvurutarihi':ilanlar[elem].get('sonbasvurutarihi')
+            }
+        ilan_list.append(ilan)
+    context={
+        'ilan_list':ilan_list
+    }
+    return render(request,"ilanlar.html",context=context)
 
 def ilanekle(request):
     Bursadi = request.POST.get('burs_name')
@@ -275,6 +290,7 @@ def ilanekle(request):
     tarihbilgisi=request.POST.get('day')
     email = request.session['logged_email']
     passs = request.session['logged_passw']
+
     try:
         # if there is no error then signin the user with given email and password
         user=authe.sign_in_with_email_and_password(email,passs)
@@ -288,19 +304,19 @@ def ilanekle(request):
                 "bursmiktari":Bursmiktari,
                 "bursverenid":uid,
                 "sonbasvurutarihi":tarihbilgisi,
+                "basvuranlarID":[""]
                        
         }
          
         unique_id = str(uuid4())
-        database.child("ilanlar").child(unique_id).set(data)
+        if Bursadi is not None:
+            database.child("ilanlar").child(unique_id).set(data)
 
     except Exception as e:
         print(e)
         message="Invalid Credentials!!Please ChecK your Data"
 
-
-
-    return render(request,"bursverenprofil.html")
+    return render(request,"ilanekle.html")
 
 def bursverenform(request):
     return render(request,"bursverenform.html")

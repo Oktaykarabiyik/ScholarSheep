@@ -383,6 +383,7 @@ input::-ms-input-placeholder { /* Microsoft Edge */
     -moz-justify-content: center;
     -webkit-justify-content: center;
 }
+
 .actions ul li.disabled,
 .actions ul li:first-child {
 	display: none;
