@@ -99,6 +99,7 @@ background-color: #f7f7fc;
 									<th>Açıklama</th>
 									<th>İlan Tarihi</th>
 									<th>Burs Tutarı</th>
+                                    <th></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -109,6 +110,13 @@ background-color: #f7f7fc;
 										<td>{{ elem.aciklama }}</td>
 										<td>{{ elem.sonbasvurutarihi }}</td>
 										<td>{{ elem.bursmiktari }}</td>
+                                        <td><form action = "../ilanlar" method = "POST">
+                                            {% csrf_token %}
+                                            <input type = "submit" value = "Başvur" />
+                                            <input type="hidden" name="ilanId" value="{{elem.ilanid}}"/>
+                                            <input type="hidden" name="action" value="ilanbasvur"/>
+                                            </form>
+                                        </td>
 									</tr>
 								{% endfor %}
 							</tbody>

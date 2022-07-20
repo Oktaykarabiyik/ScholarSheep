@@ -42,6 +42,7 @@ def postsignIn(request):
         # if there is no error then signin the user with given email and password
         user=authe.sign_in_with_email_and_password(email,pasw)
         uid = user['localId']
+        request.session['logged_ogrenci_id'] = uid
         adsoyad = db.child("ogrenciler").child(uid).child("adsoyad").get().val()
         tel = db.child("ogrenciler").child(uid).child("telefon").get().val()
         okul = db.child("ogrenciler").child(uid).child("okuladi").get().val()
@@ -268,20 +269,60 @@ def bursverenprofil(request):
 
 def ilanlar(request):
 
+    if request.method == 'POST':
+        action = request.POST.get('action')
+        if action == 'ilanbasvur':
+            ilanid = request.POST.get('ilanId')
+            ogrenciid = request.session['logged_ogrenci_id']
+            print(ilanid)
+            print(ogrenciid)
+            if ilanid is not None:
+                try:
+                    basvuranlar = db.child("ilanlar").child(ilanid).child("basvuranlarID").get().val()
+                    ogrenciyok = True
+                    for elem in basvuranlar:
+                        if elem == ogrenciid:
+                            ogrenciyok = False
+                    print(basvuranlar)
+                    if ogrenciyok:
+                        basvuranlar.append(ogrenciid)
+                        db.child("ilanlar").child(ilanid).child("basvuranlarID").set(basvuranlar)
+                except Exception as e:
+                    print(e)
+
     ilanlar = db.child("ilanlar").get().val()
+    for d1 in ilanlar:
+        print(ilanlar[d1].get('bursverenid'))
+        
     ilan_list = []
     for elem in ilanlar:
         ilan = {
             'bursAdi':ilanlar[elem].get('bursad'),
             'aciklama':ilanlar[elem].get('aciklama'),
             'bursmiktari':ilanlar[elem].get('bursmiktari'),
-            'sonbasvurutarihi':ilanlar[elem].get('sonbasvurutarihi')
+            'sonbasvurutarihi':ilanlar[elem].get('sonbasvurutarihi'),
+            'ilanid':ilanlar[elem].get('ilanID')
             }
         ilan_list.append(ilan)
     context={
         'ilan_list':ilan_list
     }
     return render(request,"ilanlar.html",context=context)
+
+def basvuruyap(request,ilanID):
+    email = request.session['logged_email']
+    passs = request.session['logged_passw']
+
+    user=authe.sign_in_with_email_and_password(email,passs)
+    uid = user['localId']    
+    ilanID = request.POST.get('ilanID')
+
+    data={                
+                "basvuranlarID":["uid"],                    
+        }
+    database.child("ilanlar").child(ilanID).set(data)
+
+    return render(request,"ilanlar.html")
 
 def ilanekle(request):
     bursadi = request.POST.get('bursad')
