@@ -309,6 +309,12 @@ def ilanlar(request):
     }
     return render(request,"ilanlar.html",context=context)
 
+def basvuranlarlist(request):
+    
+    
+    
+    return
+
 def basvuruyap(request,ilanID):
     email = request.session['logged_email']
     passs = request.session['logged_passw']
@@ -359,5 +365,7 @@ def ilanekle(request):
 
     return render(request,"ilanekle.html")
 
+def basvuranlar(request):
+    return render(request,"basvuranlar.html")
 def bursverenform(request):
     return render(request,"bursverenform.html")
