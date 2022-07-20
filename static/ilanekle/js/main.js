@@ -28,8 +28,10 @@ $(function(){
         }
     });
     $("#day").datepicker({
-        dateFormat: "MM - DD - yy",
+        // dateFormat: "MM - DD - yy",
+        dateFormat: "dd/mm/yyyy",
         showOn: "both",
         buttonText : '<i class="zmdi zmdi-chevron-down"></i>',
     });
 });
+

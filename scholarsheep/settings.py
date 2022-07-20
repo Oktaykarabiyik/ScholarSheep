@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'scholarsheep.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'C:/Users/Oktay/Documents/ScholarSheep/db.sqlite3',
+        'NAME': 'C:/Users/Betül/Documents/Github/ScholarSheep/db.sqlite3',
     }
 }
 

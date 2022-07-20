@@ -86,22 +86,22 @@ def postsignUp(request):
     passs = request.POST.get('pass')
     password=passs
     adsoyad=request.POST.get('adsoyad')
-    tel=request.POST.get('telefon')
+    telefon=request.POST.get('telefon')
     yas=request.POST.get('yas')
     egitimduzeyi=request.POST.get('egitimduzeyi')
-    bolumveokul=request.POST.get('okuladi')
+    okuladi=request.POST.get('okuladi')
     notortalama=request.POST.get('notortalama')
     aylikgelir=request.POST.get('aylikgelir')
     annesagdurumu=request.POST.get('annesagdurumu')
     babasagdurumu=request.POST.get('babasagdurumu')
-    sehityakinligi=request.POST.get('sehityakinligi')
+    sehityakinlikdurumu=request.POST.get('sehityakinlikdurumu')
     ikametgah=request.POST.get('ikametgah')
     ad_soyadi=adsoyad
-    tel_no=tel
-    okul=bolumveokul
+    tel_no=telefon
+    okul=okuladi
     adres=ikametgah
     print(email)
-    print(tel)
+    print(telefon)
     try:
         # creating a user with the given email and password
         if email is not None:
@@ -120,15 +120,15 @@ def postsignUp(request):
         
             data={
                 "adsoyad":adsoyad,
-                "tel":tel,
+                "telefon":telefon,
                 "yas":yas,
                 "egitimduzeyi":egitimduzeyi,
-                "bolumveokul":bolumveokul,
+                "okuladi":okuladi,
                 "notortalama":notortalama,
                 "aylikgeir":aylikgelir,
                 "annesagdurumu":annesagdurumu,
                 "babasagdurumu":babasagdurumu,
-                "sehityakinligi":sehityakinligi,
+                "sehityakinlikdurumu":sehityakinlikdurumu,
                 "ikametgah":ikametgah        
             }
             database.child("ogrenciler").child(uid).set(data)
@@ -284,10 +284,10 @@ def ilanlar(request):
     return render(request,"ilanlar.html",context=context)
 
 def ilanekle(request):
-    Bursadi = request.POST.get('burs_name')
-    Bursmiktari = request.POST.get('burs_miktari')
-    Aciklama=request.POST.get('aciklama')
-    tarihbilgisi=request.POST.get('day')
+    bursadi = request.POST.get('bursad')
+    bursmiktari = request.POST.get('bursmiktari')
+    aciklama=request.POST.get('aciklama')
+    sonbasvurutarihi=request.POST.get('sonbasvurutarihi')
     email = request.session['logged_email']
     passs = request.session['logged_passw']
 
@@ -299,17 +299,17 @@ def ilanekle(request):
         print(uid)
         print("gecti2")
         data={
-                "aciklama":Aciklama,
-                "bursad":Bursadi,
-                "bursmiktari":Bursmiktari,
+                "aciklama":aciklama,
+                "bursad":bursadi,
+                "bursmiktari":bursmiktari,
                 "bursverenid":uid,
-                "sonbasvurutarihi":tarihbilgisi,
+                "sonbasvurutarihi":sonbasvurutarihi,
                 "basvuranlarID":[""]
                        
         }
          
         unique_id = str(uuid4())
-        if Bursadi is not None:
+        if bursadi is not None:
             database.child("ilanlar").child(unique_id).set(data)
 
     except Exception as e:

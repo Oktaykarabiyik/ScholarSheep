@@ -37,7 +37,7 @@
 								<div class="form-row">
 									<div class="form-holder">
 										<label class="form-row-inner">
-											<input type="text" class="form-control" id="first_name" name="burs_name" required>
+											<input type="text" class="form-control" id="first_name" name="bursad" required>
 											<span class="label">Burs Adı</span>
 										</label>
 									</div>
@@ -45,7 +45,7 @@
 								<div class="form-row">
 									<div class="form-holder form-holder-2">
 										<label class="form-row-inner">
-											<input type="text" class="form-control" id="bursmiktari" name="burs_miktari" required>
+											<input type="text" class="form-control" id="bursmiktari" name="bursmiktari" required>
 											<span class="label">Burs Miktarı</span>
 										</label>
 									</div>
@@ -90,9 +90,10 @@
 								<div class="form-row">
 									<div class="form-holder">
 										<label for="day" class="special-label-1">Son Başvuru Tarihi</label>
-										<input type="text" name="day" class="day" id="day" placeholder="15 / 08 / 2018">
+										<input type="date" name="sonbasvurutarihi" >
 									</div>
-								</div>
+								</div>								
+								
 							</div>
 			            </section>
 			            <!-- SECTION 3 -->
@@ -146,5 +147,6 @@
 	<script src="{% static 'ilanekle/js/jquery.steps.js' %}"></script>
 	<script src="{% static 'ilanekle/js/jquery-ui.min.js' %}"></script>
 	<script src="{% static 'ilanekle/js/main.js' %}"></script>
+	
 </body>
 </html>
