@@ -206,7 +206,7 @@ def bursverenpostsignUp(request):
      email = request.POST.get('email')
      passs = request.POST.get('pass')
      adsoyad=request.POST.get('adsoyad')
-     tel=request.POST.get('telefon')
+     telefon=request.POST.get('telefon')
      try:
        if email is not None:
             print('Email Girdi')
@@ -222,10 +222,11 @@ def bursverenpostsignUp(request):
             e_mail=request.session['email']
             print(uid)
             ad_soyadi=adsoyad
-            tel_no=tel
+            tel_no=telefon
             data={
                 "adsoyad":adsoyad,
-                "tel":tel,        
+                "telefon":telefon, 
+                "verdigiburslar":[""]
                  }
 
             database.child("bursverenler").child(uid).set(data)
