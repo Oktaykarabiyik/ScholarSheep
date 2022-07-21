@@ -10,14 +10,14 @@ from requests import session
 
 
 config={
-  "apiKey": "AIzaSyBmM91bv9cLoRFOYHO-0k9jBv9aN3Lhh8o",
-  "authDomain": "scholarsheep-8fbec.firebaseapp.com",
-  "projectId": "scholarsheep-8fbec",
-  "databaseURL": "https://scholarsheep-8fbec-default-rtdb.firebaseio.com",
-  "storageBucket": "scholarsheep-8fbec.appspot.com",
-  "messagingSenderId": "177314107895",
-  "appId": "1:177314107895:web:4e7164bbb31e683d38def2",
-  "measurementId": "G-ETXWFENSN7"
+  "apiKey": "YOUR APIKEY",
+  "authDomain": "",
+  "projectId": "",
+  "databaseURL": "",
+  "storageBucket": "",
+  "messagingSenderId": "",
+  "appId": "",
+  "measurementId": ""
 }
 
 id="123"
